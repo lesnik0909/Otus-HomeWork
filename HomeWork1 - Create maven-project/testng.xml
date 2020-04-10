@@ -2,7 +2,7 @@
 <suite name="Suite 1" verbose="1">
     <test name="Regression suite 1">
         <classes>
-            <class name="tests.TestOtus"/>
+            <class name="tests.TestOtusOpen"/>
         </classes>
     </test>
 </suite>

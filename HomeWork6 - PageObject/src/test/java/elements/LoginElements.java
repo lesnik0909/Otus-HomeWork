@@ -1,8 +1,6 @@
 package elements;
 
 public class LoginElements {
-
-    //Главная
     public static final String TITTLE_LOGIN_PAGE  = "//span[contains(text(), 'Войдите в свой аккаунт')]"; //Страница входа в аккаунт
     public static final String TITTLE_LK_PAGE  = "//h1[contains(@class, 'title__text') and contains(text(), 'Личный кабинет')]"; //Страница личного кабинета
     public static final String BANNER = "div.sticky-banner__close.js-sticky-banner-close"; //Закрытие баннера

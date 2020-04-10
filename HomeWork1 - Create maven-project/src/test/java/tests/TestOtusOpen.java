@@ -7,9 +7,9 @@ import org.testng.annotations.*;
 import static elements.Elements.*;
 
 
-public class TestOtus extends Presets {
+public class TestOtusOpen extends Presets {
     @Test
-    public void testOtusOpen() throws InterruptedException {
+    public void OtusOpen() throws InterruptedException {
 
         driver.get(SYSTEM_URL);
         System.out.println(driver.getTitle());

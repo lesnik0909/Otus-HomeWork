@@ -113,6 +113,7 @@ public class LkPersonalPage {
         PageFactory.initElements(driver, this);
         return this;
     }
+
     //Изменение Email пользователя
     public LkPersonalPage setEmail() {
         emailValue = inputEmail.getAttribute("value");

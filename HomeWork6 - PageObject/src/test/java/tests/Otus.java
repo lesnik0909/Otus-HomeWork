@@ -14,7 +14,7 @@ public class Otus extends BaseTest {
     LkPersonalPage lkPersonalPage;
 
     @Test
-    public void OtusAccount() throws InterruptedException {
+    public void otusAccount() throws InterruptedException {
         lkPersonalPage = new LkPersonalPage(driver, wait);
         loginPage = new LoginPage(driver, wait);
         lkPersonalPage.open();
