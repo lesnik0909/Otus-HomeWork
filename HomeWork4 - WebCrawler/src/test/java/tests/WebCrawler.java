@@ -3,21 +3,26 @@ package tests;
 import presets.BaseTest;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+
 import java.io.*;
+
 import org.testng.annotations.*;
+import presets.BufferedWriterUtils;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import static elements.Elements.*;
 
 
 public class WebCrawler extends BaseTest {
 
     final private Logger logger = Logger.getLogger(WebCrawler.class);
+    public BufferedWriter bw;
 
     @Test
-    public void testWebCrawler() throws InterruptedException, IOException {
+    public void testWebCrawler() throws IOException {
 
         driver.get(SYSTEM_URL);
         System.out.println(driver.getTitle());
@@ -25,25 +30,31 @@ public class WebCrawler extends BaseTest {
 
         WebElement element = driver.findElement(By.xpath(BUTTON_LOADER));
 
+        List<WebElement> books = new ArrayList<>();
+        int currentSize = -1;
+
         //Прогрузить все элементы на странице, получить список
-        while (true) {
+        while (currentSize < books.size()) {
+            currentSize = books.size();
+
             ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
             ((JavascriptExecutor) driver).executeScript("window.scrollBy(0, -5)");
 
-            List<WebElement> books = driver.findElements(By.cssSelector(BOOK));
+            books = driver.findElements(By.cssSelector(BOOK));
             logger.info("Count books - " + books.size());
 
             try {
-                wait = new WebDriverWait(driver, 3);
-                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(BUTTON_LOADER)));
+                wait.until(ExpectedConditions.and(
+                        ExpectedConditions.invisibilityOfElementLocated(By.xpath(BUTTON_LOADER)),
+                        ExpectedConditions.numberOfElementsToBeMoreThan(By.cssSelector(BOOK), currentSize)
+                ));
             } catch (TimeoutException ex) {
-                logger.info("All books loaded");
-                break;
             }
         }
+        logger.info("All books loaded");
 
         //Определить общее количество элементов
-        List<WebElement> books = driver.findElements(By.cssSelector(BOOK));
+        books = driver.findElements(By.cssSelector(BOOK));
         logger.info("Total count books - " + books.size());
 
         //Получить ссылки на элементы
@@ -61,10 +72,9 @@ public class WebCrawler extends BaseTest {
         String price;
         String linkDownloadTrialFragment;
 
-        //Инициализировать поток по созданию файла
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("Books.csv"), "cp1251"));
-        //Добавить заголовки в CSV
-        bw.write("Ссылка на книгу; Название; Автор; Цена; Ссылка на ознакомительный фрагмент\n");
+        //Записать данные в файл
+        String header = ("Ссылка на книгу; Название; Автор; Цена; Ссылка на ознакомительный фрагмент\n");
+        bw = BufferedWriterUtils.getWriter(header);
 
         //Получить дополнительную информацию по элементам
         for (int counter = 0; counter < books.size(); counter++) {
@@ -96,13 +106,13 @@ public class WebCrawler extends BaseTest {
             }
 
             //Записать данные в файл CSV
-            bw.write(urlBooks.get(counter) + ";" + title + ";" + author + ";" + price + ";" + linkDownloadTrialFragment + ";\n");
+            BufferedWriterUtils.writeDataFile(urlBooks.get(counter), title, author, price, linkDownloadTrialFragment);
 
             logger.info("Checked book " + (counter + 1) + " of " + books.size());
         }
 
-        //Закрыть поток по созданию файла
-        bw.close();
+//        //Закрыть поток по созданию файла
+        BufferedWriterUtils.closeBw();
     }
 }
 
