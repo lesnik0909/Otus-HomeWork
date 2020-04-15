@@ -1,5 +1,7 @@
 package tests;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.chrome.ChromeDriver;
 import presets.BaseTest;
 import org.openqa.selenium.By;
 import org.testng.Assert;
@@ -25,5 +27,7 @@ public class TestOtus extends BaseTest {
 
         Thread.sleep(1000);
     }
+
+
 }
 

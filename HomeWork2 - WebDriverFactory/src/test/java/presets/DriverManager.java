@@ -19,24 +19,32 @@ public class DriverManager {
     final public static Logger logger = Logger.getLogger(BaseTest.class);
     public static WebDriver driver;
 
+    public enum WebDriverName {
+        chrome,
+        firefox,
+        ie,
+        opera,
+    };
+
     public static WebDriver getDriver() {
+
         String browserName = getParameter().toLowerCase();
         logger.info("Start browser: " + browserName);
 
-        switch (browserName) {
-            case "chrome":
+        switch (WebDriverName.valueOf(browserName)) {
+            case chrome:
                 WebDriverManager.chromedriver().setup();
                 driver = WebDriverPool.DEFAULT.getDriver(new ChromeOptions());
                 break;
-            case "firefox":
+            case firefox:
                 WebDriverManager.firefoxdriver().setup();
                 driver = WebDriverPool.DEFAULT.getDriver(new FirefoxOptions());
                 break;
-            case "ie":
+            case ie:
                 WebDriverManager.iedriver().setup();
                 driver = WebDriverPool.DEFAULT.getDriver(new InternetExplorerOptions());
                 break;
-            case "opera":
+            case opera:
                 WebDriverManager.operadriver().setup();
                 driver = WebDriverPool.DEFAULT.getDriver(new OperaOptions());
                 break;
