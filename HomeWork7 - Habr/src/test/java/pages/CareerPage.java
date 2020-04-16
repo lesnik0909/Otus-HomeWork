@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.w3c.dom.html.HTMLInputElement;
 
 import static configuration.ConfigProperties.*;
 import static elements.CareerElements.*;
@@ -29,10 +30,10 @@ public class CareerPage {
     private WebElement searchResultVacancy;
 
     @FindBy(xpath = ALL_VACANCIES)
-    private WebElement allVacancies;
+    public WebElement allVacancies;
 
     @FindBy(xpath = ALL_OUR_CLIENTS)
-    private WebElement allClients;
+    public WebElement allClients;
 
     public CareerPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
@@ -47,9 +48,8 @@ public class CareerPage {
         searchVacancy.sendKeys(Keys.RETURN);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(SEARCH_RESULT_VACANCY)));
         String vacancy = searchResultVacancy.getText().toLowerCase();
-        Assert.assertTrue(vacancy.contains(SEARCH_VACANCY_STRING));
-        System.out.println("На странице поиска в названии вакансий присутствует искомая фраза '" + SEARCH_VACANCY_STRING + "'");
-        PageFactory.initElements(driver, this);
+        Assert.assertTrue(vacancy.contains(SEARCH_VACANCY_STRING), "На странице поиска в названии вакансии отсутствует искомая фраза '" + SEARCH_VACANCY_STRING + "'");
+        logger.info("На странице поиска в названии вакансии присутствует искомая фраза '" + SEARCH_VACANCY_STRING + "'");
         return this;
     }
 
@@ -66,7 +66,6 @@ public class CareerPage {
         allVacancies.click();
         switchToTab();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(VACANCIES)));
-        PageFactory.initElements(driver, this);
         return this;
     }
 
@@ -75,7 +74,6 @@ public class CareerPage {
         allClients.click();
         switchToTab();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(ALL_COMPANIES)));
-        PageFactory.initElements(driver, this);
         return this;
     }
 

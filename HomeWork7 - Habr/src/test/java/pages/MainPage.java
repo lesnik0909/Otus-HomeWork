@@ -32,24 +32,24 @@ public class MainPage {
 
     @FindBy (xpath = SEARCH_RESULT_TITLE)
     private List<WebElement> searchResultTitle;
-
-    @FindBy (xpath = FILTER_ALL)
-    private WebElement all;
-
-    @FindBy (xpath = FILTER_BEST)
-    private WebElement best;
-
-    @FindBy (xpath = FILTER_DAY)
-    private WebElement day;
-
-    @FindBy (xpath = FILTER_WEEK)
-    private WebElement week;
-
-    @FindBy (xpath = FILTER_MONTH)
-    private WebElement month;
-
-    @FindBy (xpath = FILTER_YEAR)
-    private WebElement year;
+//
+//    @FindBy (xpath = FILTER_ALL)
+//    private WebElement all;
+//
+//    @FindBy (xpath = FILTER_BEST)
+//    private WebElement best;
+//
+//    @FindBy (xpath = FILTER_DAY)
+//    private WebElement day;
+//
+//    @FindBy (xpath = FILTER_WEEK)
+//    private WebElement week;
+//
+//    @FindBy (xpath = FILTER_MONTH)
+//    private WebElement month;
+//
+//    @FindBy (xpath = FILTER_YEAR)
+//    private WebElement year;
 
     @FindBy (xpath = SERVICES_HABR)
     private WebElement servicesHabr;
@@ -88,43 +88,43 @@ public class MainPage {
         PageFactory.initElements(driver, this);
     }
 
+    public WebElement getFilterPosts(String filterName) {
+        return driver.findElement(By.xpath("//div[contains(@class, 'tabs__level')]//a[contains(text(), '" + filterName + "')]"));
+    }
+
     //Открытие ресурса
     public MainPage open() {
         driver.get(URL_SYSTEM);
-        PageFactory.initElements(driver, this);
         return this;
     }
 
     //Проверка соответствия заголовка страницы
     public MainPage verifyTitle(String ExpectedTitle) {
         String ActualTitle = driver.getTitle();
-        Assert.assertEquals(ActualTitle, ExpectedTitle);
-        System.out.println("Actual title [" + ActualTitle + "] matches expected title [" + ExpectedTitle + "]");
-        PageFactory.initElements(driver, this);
+        Assert.assertEquals(ActualTitle, ExpectedTitle, "Фактическое и ожидаемое название страницы не совпадают");
+        logger.info("Actual title [" + ActualTitle + "] matches expected title [" + ExpectedTitle + "]");
         return this;
     }
 
     //Проверка фильтров статей по времени
-    public MainPage filtersTime(String filterTime, String time) {
-        driver.findElement(By.xpath(filterTime)).click();
+    public MainPage filtersTime(String filterName, String time) {
+        getFilterPosts(filterName).click();
         wait.until(ExpectedConditions.titleContains("Лучшие публикации за " + time + " / Хабр"));
         String ActualTitle = driver.getTitle();
         String ExpectedTitle = "Лучшие публикации за " + time + " / Хабр";
-        Assert.assertEquals(ActualTitle, ExpectedTitle);
-        System.out.println("Actual title [" + ActualTitle + "] matches expected title [" + ExpectedTitle + "]");
-        PageFactory.initElements(driver, this);
+        Assert.assertEquals(ActualTitle, ExpectedTitle, "Фактическое и ожидаемое название страницы не совпадают");
+        logger.info("Actual title [" + ActualTitle + "] matches expected title [" + ExpectedTitle + "]");
         return this;
     }
 
     //Проверка фильтров статей по типу
-    public MainPage filtersType(String filterType) {
-        driver.findElement(By.xpath(filterType)).click();
+    public MainPage filtersType(String filterName) {
+        getFilterPosts(filterName).click();
         wait.until(ExpectedConditions.titleContains("Все публикации подряд / Хабр"));
         String ActualTitle = driver.getTitle();
         String ExpectedTitle = "Все публикации подряд / Хабр";
-        Assert.assertEquals(ActualTitle, ExpectedTitle);
-        System.out.println("Actual title [" + ActualTitle + "] matches expected title [" + ExpectedTitle + "]");
-        PageFactory.initElements(driver, this);
+        Assert.assertEquals(ActualTitle, ExpectedTitle, "Фактическое и ожидаемое название страницы не совпадают");
+        logger.info("Actual title [" + ActualTitle + "] matches expected title [" + ExpectedTitle + "]");
         return this;
     }
 
@@ -133,7 +133,6 @@ public class MainPage {
         servicesHabr.click();
         qAndA.click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(LOGO)));
-        PageFactory.initElements(driver, this);
         return this;
     }
 
@@ -142,7 +141,6 @@ public class MainPage {
         servicesHabr.click();
         career.click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(LOGO)));
-        PageFactory.initElements(driver, this);
         return this;
     }
 
@@ -150,14 +148,12 @@ public class MainPage {
     public MainPage serviceFreelance() {
         servicesHabr.click();
         freelance.click();
-        PageFactory.initElements(driver, this);
         return this;
     }
 
     //Открытие строки поиска на "Habr"
     public MainPage searchOpen() {
         search.click();
-        PageFactory.initElements(driver, this);
         return this;
     }
 
@@ -175,10 +171,9 @@ public class MainPage {
         for (int counter = 0; counter < searchResult.size(); counter++) {
             searchResultTitles.add(searchResult.get(counter).getText().toLowerCase());
 //            logger.info(searchResultTitles.get(counter));
-            Assert.assertTrue(searchResultTitles.get(counter).contains(SEARCH_STRING));
+            Assert.assertTrue(searchResultTitles.get(counter).contains(SEARCH_STRING), "На странице поиска в названии постов отсутствует искомая фраза '" + SEARCH_STRING + "'");
         }
-        System.out.println("На странице поиска в названии постов присутствует искомая фраза '" + SEARCH_STRING + "'");
-        PageFactory.initElements(driver, this);
+        logger.info("На странице поиска в названии постов присутствует искомая фраза '" + SEARCH_STRING + "'");
         return this;
     }
 
@@ -188,7 +183,6 @@ public class MainPage {
         driver.findElement(By.xpath(language)).click();
         submitSetting.click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(heading)));
-        PageFactory.initElements(driver, this);
         return this;
     }
 
@@ -196,7 +190,6 @@ public class MainPage {
     public MainPage toComeIn() {
         toComeIn.click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(HEADING_ENTRANCE)));
-        PageFactory.initElements(driver, this);
         return this;
     }
 
@@ -204,7 +197,6 @@ public class MainPage {
     public MainPage registration() {
         registration.click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(HEADING_REGISTRATION)));
-        PageFactory.initElements(driver, this);
         return this;
     }
 

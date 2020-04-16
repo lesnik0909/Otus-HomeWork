@@ -5,6 +5,7 @@ import pages.MainPage;
 import pages.QAndAPage;
 import presets.BaseTest;
 import org.testng.annotations.*;
+import steps.CareerSteps;
 
 import static configuration.ConfigProperties.*;
 import static elements.MainElements.*;
@@ -73,10 +74,10 @@ public class Habr extends BaseTest {
     public void habrFiltersTime() {
         mainPage
                 .open()
-                .filtersTime(FILTER_DAY, DAY_FILTERS)
-                .filtersTime(FILTER_WEEK, WEEK_FILTERS)
-                .filtersTime(FILTER_MONTH, MONTH_FILTERS)
-                .filtersTime(FILTER_YEAR, YEAR_FILTERS);
+                .filtersTime("Сутки", DAY_FILTERS)
+                .filtersTime("Неделя", WEEK_FILTERS)
+                .filtersTime("Месяц", MONTH_FILTERS)
+                .filtersTime("Год", YEAR_FILTERS);
     }
 
     //Проверка фильтров на сервисе "Habr" по типу
@@ -84,7 +85,7 @@ public class Habr extends BaseTest {
     public void habrFiltersType() {
         mainPage
                 .open()
-                .filtersType(FILTER_ALL);
+                .filtersType("Все подряд");
     }
 
     //Поиск на сервисе "Q&A"
@@ -103,9 +104,9 @@ public class Habr extends BaseTest {
                 .open()
                 .serviceQAndA();
         qAndAPage
-                .filtersQuestions(FILTER_INTERESTING_QUESTION, INTERESTING_QUESTIONS_FILTERS)
-                .filtersQuestions(FILTER_NEW_QUESTION, NEW_QUESTIONS_FILTERS)
-                .filtersQuestions(FILTER_WITHOUT_ANSWER_QUESTION, UNANSWERED_QUESTIONS_FILTERS);
+                .filtersQuestions("Интересные", INTERESTING_QUESTIONS_FILTERS)
+                .filtersQuestions("Новые вопросы", NEW_QUESTIONS_FILTERS)
+                .filtersQuestions("Без ответа", UNANSWERED_QUESTIONS_FILTERS);
     }
 
     //Проверка кнопки "О сервисе" на сервисе "Q&A"

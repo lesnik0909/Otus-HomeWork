@@ -83,16 +83,14 @@ public class LkPersonalPage {
         } catch (Exception e) {
         }
         openLogin.click();
-        PageFactory.initElements(driver, this);
         return this;
     }
 
     //Открыть страницу "О себе" в личном кабинете
-    public  LkPersonalPage profile() {
+    public LkPersonalPage profile() {
         lk.click();
         myProfile.click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(TITTLE_LK_PAGE)));
-        PageFactory.initElements(driver, this);
         return this;
     }
 
@@ -110,7 +108,6 @@ public class LkPersonalPage {
         inputBlogName.sendKeys(BLOG_NAME);
         inputBirthDate.clear();
         inputBirthDate.sendKeys(DATE_BIRTH);
-        PageFactory.initElements(driver, this);
         return this;
     }
 
@@ -123,7 +120,6 @@ public class LkPersonalPage {
         } catch (Exception e) {
             logger.info("Поле 'Email' содержит данные " + emailValue + " и оно не кликабельно");
         }
-        PageFactory.initElements(driver, this);
         return this;
     }
 
@@ -136,7 +132,6 @@ public class LkPersonalPage {
         } catch (Exception e) {
             logger.info("Поле 'Email' содержит данные " + phoneValue + " и оно не кликабельно");
         }
-        PageFactory.initElements(driver, this);
         return this;
     }
 
@@ -154,7 +149,6 @@ public class LkPersonalPage {
         driver.findElement(By.xpath("//input[contains(@id, 'id_contact-" + numberContact + "-value')]")).clear();
         driver.findElement(By.xpath("//input[contains(@id, 'id_contact-" + numberContact + "-value')]")).sendKeys(linkContact);
 
-        PageFactory.initElements(driver, this);
         return this;
     }
 
@@ -162,16 +156,15 @@ public class LkPersonalPage {
     public LkPersonalPage addNewContact() {
         addCommunicationMethod.click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(NEW_INPUT_COMMUNICATION_CONTACT)));
-        PageFactory.initElements(driver, this);
         return this;
     }
+
     //Сохранение данных пользователя
     public LkPersonalPage submitPersonalForm() {
         submitPersonalForm.click();
-
-        PageFactory.initElements(driver, this);
         return this;
     }
+
     //Проверка сохраненых данных
     public LkPersonalPage assertPesronalData() {
         String firstNameValue = inputFirstName.getAttribute("value");
@@ -192,7 +185,6 @@ public class LkPersonalPage {
             logger.info("Введеные данные по пользователю не сохранились");
             Assert.fail(e.getMessage());
         }
-        PageFactory.initElements(driver, this);
         return this;
     }
 
@@ -205,7 +197,6 @@ public class LkPersonalPage {
             logger.info("Контакт с значением" + linkContact + " не сохранился");
             Assert.fail(e.getMessage());
         }
-        PageFactory.initElements(driver, this);
         return this;
     }
 

@@ -19,7 +19,7 @@ public class QAndAPage {
     WebDriverWait wait;
 
     @FindBy (xpath = TO_LEARN_MORE)
-    private WebElement toLearnMoreButton;
+    public WebElement toLearnMoreButton;
 
     public QAndAPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
@@ -27,15 +27,18 @@ public class QAndAPage {
         PageFactory.initElements(driver, this);
     }
 
+    public WebElement getFilterQuestions(String filterName) {
+        return driver.findElement(By.xpath("//div[contains(@class, 'page__filters')]//a[contains(text(), '" + filterName +"')]"));
+    }
+
     //Фильтры вопросов
-    public QAndAPage filtersQuestions(String filterQuestion, String type) {
-        driver.findElement(By.xpath(filterQuestion)).click();
+    public QAndAPage filtersQuestions(String filterName, String type) {
+        getFilterQuestions(filterName).click();
         wait.until(ExpectedConditions.titleContains(type + " — Хабр Q&A"));
         String ActualTitle = driver.getTitle();
         String ExpectedTitle = type + " — Хабр Q&A";
-        Assert.assertEquals(ActualTitle, ExpectedTitle);
-        System.out.println("Actual title [" + ActualTitle + "] matches expected title [" + ExpectedTitle + "]");
-        PageFactory.initElements(driver, this);
+        Assert.assertEquals(ActualTitle, ExpectedTitle, "Фактическое и ожидаемое название страницы не совпадают");
+        logger.info("Actual title [" + ActualTitle + "] matches expected title [" + ExpectedTitle + "]");
         return this;
     }
 
@@ -43,8 +46,7 @@ public class QAndAPage {
     public QAndAPage AboutServicePage() {
         toLearnMoreButton.click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(ABOUT_SERVICE)));
-        Assert.assertTrue(driver.findElement(By.xpath(ABOUT_SERVICE)).isDisplayed());
-        PageFactory.initElements(driver, this);
+        Assert.assertTrue(driver.findElement(By.xpath(ABOUT_SERVICE)).isDisplayed(), "Заголовок на странице не найден");
         return this;
     }
 

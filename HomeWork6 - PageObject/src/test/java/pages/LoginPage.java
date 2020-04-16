@@ -40,7 +40,6 @@ public class LoginPage {
         inputPassword.sendKeys(PASSWORD);
         submitLoginPage.click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(LK)));
-        PageFactory.initElements(driver, this);
         return this;
     }
 }
