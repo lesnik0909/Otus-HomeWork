@@ -6,6 +6,7 @@ import pages.QAndAPage;
 import presets.BaseTest;
 import org.testng.annotations.*;
 import steps.CareerSteps;
+import steps.MainSteps;
 
 import static configuration.ConfigProperties.*;
 import static elements.MainElements.*;
@@ -18,11 +19,20 @@ public class Habr extends BaseTest {
     QAndAPage qAndAPage;
     CareerPage careerPage;
 
+    MainSteps mainSteps;
+
     @BeforeTest
     public void serUpTests() {
         mainPage = new MainPage(driver, wait);
         qAndAPage = new QAndAPage(driver, wait);
         careerPage = new CareerPage(driver, wait);
+        mainSteps = new MainSteps();
+    }
+
+    //Проверка выноса методов в steps
+    @Test
+    public void openCareerResouse() {
+        mainSteps.openResourse();
     }
 
     //Проверка открытия сервиса "Habr"
