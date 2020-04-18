@@ -1,11 +1,13 @@
 package tests;
 
-import io.qameta.allure.*;
-import pages.CareerPage;
-import pages.MainPage;
-import pages.QAndAPage;
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Story;
 import presets.BaseTest;
 import org.testng.annotations.*;
+import steps.CareerSteps;
+import steps.MainSteps;
+import steps.QAndASteps;
 
 import static configuration.ConfigProperties.*;
 import static elements.MainElements.*;
@@ -14,15 +16,15 @@ import static elements.QAndAElements.*;
 
 public class Habr extends BaseTest {
 
-    MainPage mainPage;
-    QAndAPage qAndAPage;
-    CareerPage careerPage;
+    MainSteps mainSteps;
+    QAndASteps qAndASteps;
+    CareerSteps careerSteps;
 
     @BeforeTest
     public void serUpTests() {
-        mainPage = new MainPage(driver, wait);
-        qAndAPage = new QAndAPage(driver, wait);
-        careerPage = new CareerPage(driver, wait);
+        mainSteps = new MainSteps(driver, wait);
+        qAndASteps = new QAndASteps(driver, wait);
+        careerSteps = new CareerSteps(driver, wait);
     }
 
     //Проверка открытия сервиса "Habr"
@@ -31,7 +33,7 @@ public class Habr extends BaseTest {
     @Description("Проверка открытия сервиса \"Habr\"")
     @Test
     public void serviceHabr() {
-        mainPage
+        mainSteps
                 .open()
                 .verifyTitle(HABR_TITLE);
     }
@@ -42,7 +44,7 @@ public class Habr extends BaseTest {
     @Description("Проверка открытия сервиса \"Q&A\"")
     @Test
     public void serviceQAndA() {
-        mainPage
+        mainSteps
                 .open()
                 .serviceQAndA()
                 .verifyTitle(HABR_Q_AND_A_TITLE);
@@ -54,7 +56,7 @@ public class Habr extends BaseTest {
     @Description("Проверка открытия сервиса \"Карьера\"")
     @Test
     public void serviceCareer() {
-        mainPage
+        mainSteps
                 .open()
                 .serviceCareer()
                 .verifyTitle(HABR_CAREER_TITLE);
@@ -66,7 +68,7 @@ public class Habr extends BaseTest {
     @Description("Проверка открытия сервиса \"Фриланс\"")
     @Test
     public void serviceFreelance() {
-        mainPage
+        mainSteps
                 .open()
                 .serviceFreelance()
                 .verifyTitle(HABR_FREELANCE_TITLE);
@@ -78,7 +80,7 @@ public class Habr extends BaseTest {
     @Description("Поиск на сервисе \"Habr\"")
     @Test
     public void habrSearch() {
-        mainPage
+        mainSteps
                 .open()
                 .searchOpen()
                 .search(SEARCH_STRING, SEARCH_RESULT_TITLE);
@@ -90,12 +92,12 @@ public class Habr extends BaseTest {
     @Description("Проверка фильтров на сервисе \"Habr\" по времени")
     @Test
     public void habrFiltersTime() {
-        mainPage
+        mainSteps
                 .open()
-                .filtersTime(FILTER_DAY, DAY_FILTERS)
-                .filtersTime(FILTER_WEEK, WEEK_FILTERS)
-                .filtersTime(FILTER_MONTH, MONTH_FILTERS)
-                .filtersTime(FILTER_YEAR, YEAR_FILTERS);
+                .filtersTime("Сутки", DAY_FILTERS)
+                .filtersTime("Неделя", WEEK_FILTERS)
+                .filtersTime("Месяц", MONTH_FILTERS)
+                .filtersTime("Год", YEAR_FILTERS);
     }
 
     //Проверка фильтров на сервисе "Habr" по типу
@@ -104,9 +106,9 @@ public class Habr extends BaseTest {
     @Description("Проверка фильтров на сервисе \"Habr\" по типу")
     @Test
     public void habrFiltersType() {
-        mainPage
+        mainSteps
                 .open()
-                .filtersType(FILTER_ALL);
+                .filtersType("Все подряд");
     }
 
     //Поиск на сервисе "Q&A"
@@ -115,7 +117,7 @@ public class Habr extends BaseTest {
     @Description("Поиск на сервисе \"Q&A\"")
     @Test
     public void QAndASearch() {
-        mainPage
+        mainSteps
                 .open()
                 .serviceQAndA()
                 .search(SEARCH_STRING, SEARCH_RESULT_QUESTION);
@@ -127,13 +129,13 @@ public class Habr extends BaseTest {
     @Description("Проверка фильтров на сервисе \"Q&A\" по типу")
     @Test
     public void QAndAFilters() {
-        mainPage
+        mainSteps
                 .open()
                 .serviceQAndA();
-        qAndAPage
-                .filtersQuestions(FILTER_INTERESTING_QUESTION, INTERESTING_QUESTIONS_FILTERS)
-                .filtersQuestions(FILTER_NEW_QUESTION, NEW_QUESTIONS_FILTERS)
-                .filtersQuestions(FILTER_WITHOUT_ANSWER_QUESTION, UNANSWERED_QUESTIONS_FILTERS);
+        qAndASteps
+                .filtersQuestions("Интересные", INTERESTING_QUESTIONS_FILTERS)
+                .filtersQuestions("Новые вопросы", NEW_QUESTIONS_FILTERS)
+                .filtersQuestions("Без ответа", UNANSWERED_QUESTIONS_FILTERS);
     }
 
     //Проверка кнопки "О сервисе" на сервисе "Q&A"
@@ -142,11 +144,11 @@ public class Habr extends BaseTest {
     @Description("Проверка кнопки \"О сервисе\" на сервисе \"Q&A\"")
     @Test
     public void QAndAAboutService() {
-        mainPage
+        mainSteps
                 .open()
                 .serviceQAndA();
-        qAndAPage.AboutServicePage();
-        mainPage.verifyTitle(HABR_Q_AND_A_HELP_TITLE);
+        qAndASteps.AboutServicePage();
+        mainSteps.verifyTitle(HABR_Q_AND_A_HELP_TITLE);
     }
 
     //Поиск на сервисе "Карьера"
@@ -155,10 +157,10 @@ public class Habr extends BaseTest {
     @Description("Поиск на сервисе \"Карьера\"")
     @Test
     public void careerSearchVacancies() {
-        mainPage
+        mainSteps
                 .open()
                 .serviceCareer();
-        careerPage.searchVacancies(SEARCH_VACANCY_STRING);
+        careerSteps.searchVacancies(SEARCH_VACANCY_STRING);
     }
 
     //Все вакансии на сервисе "Карьера"
@@ -167,11 +169,11 @@ public class Habr extends BaseTest {
     @Description("Все вакансии на сервисе \"Карьера\"")
     @Test
     public void careerAllVacancies() {
-        mainPage
+        mainSteps
                 .open()
                 .serviceCareer();
-        careerPage.allVacancies();
-        mainPage.verifyTitle(HABR_CAREER_VACANCIES_TITLE);
+        careerSteps.allVacancies();
+        mainSteps.verifyTitle(HABR_CAREER_VACANCIES_TITLE);
     }
 
     //Все компании на сервисе "Карьера"
@@ -180,11 +182,11 @@ public class Habr extends BaseTest {
     @Description("Все компании на сервисе \"Карьера\"")
     @Test
     public void careerAllCompanies() {
-        mainPage
+        mainSteps
                 .open()
                 .serviceCareer();
-        careerPage.allCompanies();
-        mainPage.verifyTitle(HABR_CAREER_COMPANIES_TITLE);
+        careerSteps.allCompanies();
+        mainSteps.verifyTitle(HABR_CAREER_COMPANIES_TITLE);
     }
 
     //Переключение языка на сервисе "Habr"
@@ -193,7 +195,7 @@ public class Habr extends BaseTest {
     @Description("Переключение языка на сервисе \"Habr\"")
     @Test
     public void habrSwitchLanguage() {
-        mainPage
+        mainSteps
                 .open()
                 .switchLanguage(ENGLISH, ALL_STREAMS_EN)
                 .verifyTitle(HABR_EN_TITLE)
@@ -207,7 +209,7 @@ public class Habr extends BaseTest {
     @Description("Кнопка \"Войти\" на сервисе \"Habr\"")
     @Test
     public void habrToComeIn() {
-        mainPage
+        mainSteps
                 .open()
                 .toComeIn()
                 .verifyTitle(HABR_ENTRANCE_TITLE);
@@ -219,7 +221,7 @@ public class Habr extends BaseTest {
     @Description("Кнопка \"Регистрация\" на сервисе \"Habr\"")
     @Test
     public void habrRegistration() {
-        mainPage
+        mainSteps
                 .open()
                 .registration()
                 .verifyTitle(HABR_REGISTRATION_TITLE);

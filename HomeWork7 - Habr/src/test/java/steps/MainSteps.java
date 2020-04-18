@@ -1,12 +1,22 @@
 package steps;
 
 import org.apache.log4j.Logger;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import pages.CareerPage;
 import pages.MainPage;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static configuration.ConfigProperties.SEARCH_STRING;
 import static configuration.Url.*;
+import static elements.MainElements.*;
 
 public class MainSteps {
     final public static Logger logger = Logger.getLogger(CareerPage.class);
@@ -14,9 +24,123 @@ public class MainSteps {
     WebDriver driver;
     WebDriverWait wait;
 
+    MainPage mainPage;
+
+    public MainSteps(WebDriver driver, WebDriverWait wait) {
+        mainPage = new MainPage(driver, wait);
+        this.driver = driver;
+        this.wait = wait;
+    }
+
+    //Получение локатора фильтра
+    public WebElement getFilterPosts(String filterName) {
+        return driver.findElement(By.xpath("//div[contains(@class, 'tabs__level')]//a[contains(text(), '" + filterName + "')]"));
+    }
+
     //Открытие ресурса
-    public MainSteps openResourse() {
+    public MainSteps open() {
         driver.get(URL_SYSTEM);
+        return this;
+    }
+
+    //Проверка соответствия заголовка страницы
+    public MainSteps verifyTitle(String ExpectedTitle) {
+        String ActualTitle = driver.getTitle();
+        Assert.assertEquals(ActualTitle, ExpectedTitle, "Фактическое и ожидаемое название страницы не совпадают");
+        logger.info("Actual title [" + ActualTitle + "] matches expected title [" + ExpectedTitle + "]");
+        return this;
+    }
+
+    //Проверка фильтров статей по времени
+    public MainSteps filtersTime(String filterName, String time) {
+        getFilterPosts(filterName).click();
+        wait.until(ExpectedConditions.titleContains("Лучшие публикации за " + time + " / Хабр"));
+        String ActualTitle = driver.getTitle();
+        String ExpectedTitle = "Лучшие публикации за " + time + " / Хабр";
+        Assert.assertEquals(ActualTitle, ExpectedTitle, "Фактическое и ожидаемое название страницы не совпадают");
+        logger.info("Actual title [" + ActualTitle + "] matches expected title [" + ExpectedTitle + "]");
+        return this;
+    }
+
+    //Проверка фильтров статей по типу
+    public MainSteps filtersType(String filterName) {
+        getFilterPosts(filterName).click();
+        wait.until(ExpectedConditions.titleContains("Все публикации подряд / Хабр"));
+        String ActualTitle = driver.getTitle();
+        String ExpectedTitle = "Все публикации подряд / Хабр";
+        Assert.assertEquals(ActualTitle, ExpectedTitle, "Фактическое и ожидаемое название страницы не совпадают");
+        logger.info("Actual title [" + ActualTitle + "] matches expected title [" + ExpectedTitle + "]");
+        return this;
+    }
+
+    //Открытие сервиса "Q&A"
+    public MainSteps serviceQAndA() {
+        mainPage.servicesHabr.click();
+        mainPage.qAndA.click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(LOGO)));
+        return this;
+    }
+
+    //Открытие сервиса "Карьера"
+    public MainSteps serviceCareer() {
+        mainPage.servicesHabr.click();
+        mainPage.career.click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(LOGO)));
+        return this;
+    }
+
+    //Открытие сервиса "Фриланс"
+    public MainSteps serviceFreelance() {
+        mainPage.servicesHabr.click();
+        mainPage.freelance.click();
+        return this;
+    }
+
+    //Открытие строки поиска на "Habr"
+    public MainSteps searchOpen() {
+        mainPage.search.click();
+        return this;
+    }
+
+    //Поиск поста или вопроса
+    public MainSteps search(String searchString, String searchResultTitle) {
+        mainPage.inputSearch.clear();
+        mainPage.inputSearch.sendKeys(searchString);
+        mainPage.inputSearch.sendKeys(Keys.RETURN);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(searchResultTitle)));
+        //Определить общее количество элементов на странице
+        List<WebElement> searchResult = driver.findElements(By.xpath(searchResultTitle));
+        //Получить текст элементов
+        ArrayList<String> searchResultTitles = new ArrayList<>();
+        for (int counter = 0; counter < searchResult.size(); counter++) {
+            searchResultTitles.add(searchResult.get(counter).getText().toLowerCase());
+//            logger.info(searchResultTitles.get(counter));
+            Assert.assertTrue(searchResultTitles.get(counter).contains(SEARCH_STRING), "На странице поиска в названии постов отсутствует искомая фраза '" + SEARCH_STRING + "'");
+        }
+        logger.info("На странице поиска в названии постов присутствует искомая фраза '" + SEARCH_STRING + "'");
+        return this;
+    }
+
+    //Переключение языка на "Habr"
+    public MainSteps switchLanguage(String language, String heading) {
+        mainPage.switchButton.click();
+        driver.findElement(By.xpath(language)).click();
+        mainPage.submitSetting.click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(heading)));
+        return this;
+    }
+
+    //Кнопка "Войти" на "Habr"
+    public MainSteps toComeIn() {
+        mainPage.toComeIn.click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(HEADING_ENTRANCE)));
+        return this;
+    }
+
+    //Кнопка "Регистрация" на "Habr"
+    public MainSteps registration() {
+        mainPage.registration.click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(HEADING_REGISTRATION)));
         return this;
     }
 

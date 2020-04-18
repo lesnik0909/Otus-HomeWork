@@ -19,7 +19,7 @@ public interface ServerConfig extends Config {
     int testsImplicitlyWaitingTime();
 
     @Key("search.string")
-    @DefaultValue("covid-19")
+    @DefaultValue("covid")
     String searchString();
 
     @Key("search.vacancy.string")

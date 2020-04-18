@@ -12,6 +12,7 @@ public class ConfigProperties {
     }
 
     private static ServerConfig cfg = ConfigFactory.create(ServerConfig.class);
+
     public static final String SEARCH_STRING = cfg.searchString();
     public static final String SEARCH_VACANCY_STRING = cfg.searchVacancyString();
     public static final String HABR_TITLE = cfg.habrTitle();
