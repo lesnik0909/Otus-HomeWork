@@ -15,7 +15,7 @@ import static elements.QAndAElements.*;
 
 
 public class QAndASteps {
-    final public static Logger logger = Logger.getLogger(CareerPage.class);
+    final public static Logger logger = Logger.getLogger(QAndASteps.class);
 
     WebDriver driver;
     WebDriverWait wait;

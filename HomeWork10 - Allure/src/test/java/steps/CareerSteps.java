@@ -14,7 +14,7 @@ import static configuration.ConfigProperties.*;
 import static elements.CareerElements.*;
 
 public class CareerSteps {
-    final public static Logger logger = Logger.getLogger(CareerPage.class);
+    final public static Logger logger = Logger.getLogger(CareerSteps.class);
 
     WebDriver driver;
     WebDriverWait wait;

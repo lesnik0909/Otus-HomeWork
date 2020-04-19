@@ -20,7 +20,7 @@ import static configuration.Url.*;
 import static elements.MainElements.*;
 
 public class MainSteps {
-    final public static Logger logger = Logger.getLogger(CareerPage.class);
+    final public static Logger logger = Logger.getLogger(MainSteps.class);
 
     WebDriver driver;
     WebDriverWait wait;

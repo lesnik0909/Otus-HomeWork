@@ -14,12 +14,12 @@ import pages.MainPage;
 import java.util.ArrayList;
 import java.util.List;
 
-import static configuration.ConfigProperties.SEARCH_STRING;
+import static configuration.ConfigProperties.*;
 import static configuration.Url.*;
 import static elements.MainElements.*;
 
 public class MainSteps {
-    final public static Logger logger = Logger.getLogger(CareerPage.class);
+    final public static Logger logger = Logger.getLogger(MainSteps.class);
 
     WebDriver driver;
     WebDriverWait wait;
