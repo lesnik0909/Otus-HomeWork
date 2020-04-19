@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -58,6 +59,11 @@ public class MainPage {
         this.driver = driver;
         this.wait = wait;
         PageFactory.initElements(driver, this);
+    }
+
+    //Получение локатора фильтра
+    public WebElement getFilterPosts(String filterName) {
+        return driver.findElement(By.xpath("//div[contains(@class, 'tabs__level')]//a[contains(text(), '" + filterName + "')]"));
     }
 
 }

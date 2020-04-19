@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -18,46 +19,51 @@ public class MainPage {
     @FindBy(xpath = SEARCH)
     public WebElement search;
 
-    @FindBy (xpath =INPUT_SEARCH)
+    @FindBy(xpath = INPUT_SEARCH)
     public WebElement inputSearch;
 
-    @FindBy (xpath = SEARCH_RESULT_TITLE)
+    @FindBy(xpath = SEARCH_RESULT_TITLE)
     public List<WebElement> searchResultTitle;
 
-    @FindBy (xpath = SERVICES_HABR)
+    @FindBy(xpath = SERVICES_HABR)
     public WebElement servicesHabr;
 
-    @FindBy (xpath = HABR)
+    @FindBy(xpath = HABR)
     public WebElement habr;
 
-    @FindBy (xpath = Q_AND_A)
+    @FindBy(xpath = Q_AND_A)
     public WebElement qAndA;
 
-    @FindBy (xpath = CAREER)
+    @FindBy(xpath = CAREER)
     public WebElement career;
 
-    @FindBy (xpath = FREELANCE)
+    @FindBy(xpath = FREELANCE)
     public WebElement freelance;
 
-    @FindBy (xpath = LOGO)
+    @FindBy(xpath = LOGO)
     public WebElement logo;
 
-    @FindBy (xpath = SWITCH_BUTTON)
+    @FindBy(xpath = SWITCH_BUTTON)
     public WebElement switchButton;
 
-    @FindBy (xpath = SUBMIT_SETTING)
+    @FindBy(xpath = SUBMIT_SETTING)
     public WebElement submitSetting;
 
-    @FindBy (xpath = TO_COME_IN)
+    @FindBy(xpath = TO_COME_IN)
     public WebElement toComeIn;
 
-    @FindBy (xpath = REGISTRATION)
+    @FindBy(xpath = REGISTRATION)
     public WebElement registration;
 
     public MainPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
         this.wait = wait;
         PageFactory.initElements(driver, this);
+    }
+
+    //Получение локатора фильтра
+    public WebElement getFilterPosts(String filterName) {
+        return driver.findElement(By.xpath("//div[contains(@class, 'tabs__level')]//a[contains(text(), '" + filterName + "')]"));
     }
 
 }

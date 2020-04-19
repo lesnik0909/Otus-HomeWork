@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -20,6 +21,11 @@ public class QAndAPage {
         this.driver = driver;
         this.wait = wait;
         PageFactory.initElements(driver, this);
+    }
+
+    //Получение локатора фильтра
+    public WebElement getFilterQuestions(String filterName) {
+        return driver.findElement(By.xpath("//div[contains(@class, 'page__filters')]//a[contains(text(), '" + filterName +"')]"));
     }
 
 }

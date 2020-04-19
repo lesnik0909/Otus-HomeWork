@@ -32,11 +32,6 @@ public class MainSteps {
         this.wait = wait;
     }
 
-    //Получение локатора фильтра
-    public WebElement getFilterPosts(String filterName) {
-        return driver.findElement(By.xpath("//div[contains(@class, 'tabs__level')]//a[contains(text(), '" + filterName + "')]"));
-    }
-
     //Открытие ресурса
     public MainSteps open() {
         driver.get(URL_SYSTEM);
@@ -53,7 +48,7 @@ public class MainSteps {
 
     //Проверка фильтров статей по времени
     public MainSteps filtersTime(String filterName, String time) {
-        getFilterPosts(filterName).click();
+        mainPage.getFilterPosts(filterName).click();
         wait.until(ExpectedConditions.titleContains("Лучшие публикации за " + time + " / Хабр"));
         String ActualTitle = driver.getTitle();
         String ExpectedTitle = "Лучшие публикации за " + time + " / Хабр";
@@ -64,7 +59,7 @@ public class MainSteps {
 
     //Проверка фильтров статей по типу
     public MainSteps filtersType(String filterName) {
-        getFilterPosts(filterName).click();
+        mainPage.getFilterPosts(filterName).click();
         wait.until(ExpectedConditions.titleContains("Все публикации подряд / Хабр"));
         String ActualTitle = driver.getTitle();
         String ExpectedTitle = "Все публикации подряд / Хабр";

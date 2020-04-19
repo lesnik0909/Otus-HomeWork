@@ -28,15 +28,10 @@ public class QAndASteps {
         this.wait = wait;
     }
 
-    //Получение локатора фильтра
-    public WebElement getFilterQuestions(String filterName) {
-        return driver.findElement(By.xpath("//div[contains(@class, 'page__filters')]//a[contains(text(), '" + filterName +"')]"));
-    }
-
     //Фильтры вопросов
     @Step("Фильтры вопросов, \"{type}\"")
     public QAndASteps filtersQuestions(String filterName, String type) {
-        getFilterQuestions(filterName).click();
+        qAndAPage.getFilterQuestions(filterName).click();
         wait.until(ExpectedConditions.titleContains(type + " — Хабр Q&A"));
         String ActualTitle = driver.getTitle();
         String ExpectedTitle = type + " — Хабр Q&A";
