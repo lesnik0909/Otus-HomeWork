@@ -18,5 +18,12 @@ public interface ServerConfig extends Config {
     @DefaultValue("4")
     int testsImplicitlyWaitingTime();
 
+    @Key("lk.username")
+    @DefaultValue("test@test.ru")
+    String lkUserName();
+
+    @Key("lk.password")
+    @DefaultValue("test")
+    String lkPassword();
 
 }

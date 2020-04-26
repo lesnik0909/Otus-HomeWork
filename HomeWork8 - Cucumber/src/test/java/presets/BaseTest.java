@@ -9,7 +9,6 @@ import org.testng.annotations.*;
 
 
 public class BaseTest {
-    private ServerConfig cfg = ConfigFactory.create(ServerConfig.class);
     final private Logger logger = Logger.getLogger(BaseTest.class);
     protected WebDriver driver;
     protected WebDriverWait wait;

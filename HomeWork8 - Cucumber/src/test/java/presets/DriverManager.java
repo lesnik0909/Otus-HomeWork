@@ -47,7 +47,6 @@ public class DriverManager {
         driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
         //Неявленые ожидания
         driver.manage().timeouts().implicitlyWait(cfg.testsImplicitlyWaitingTime(), TimeUnit.SECONDS);
-
         return driver;
     }
 
