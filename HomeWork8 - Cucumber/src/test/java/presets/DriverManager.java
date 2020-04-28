@@ -11,6 +11,7 @@ import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.opera.OperaOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.stqa.selenium.factory.WebDriverPool;
+
 import java.util.concurrent.TimeUnit;
 
 public class DriverManager {
@@ -52,7 +53,7 @@ public class DriverManager {
 
     //Явные ожидания
     public static WebDriverWait getDriverWait() {
-        return new WebDriverWait(getDriver(), cfg.testsWaitingTime());
+        return new WebDriverWait(driver(), cfg.testsWaitingTime());
     }
 
     public static void stopAllDrivers() {
@@ -72,6 +73,13 @@ public class DriverManager {
         } else {
             return value;
         }
+    }
+
+    public static WebDriver driver() {
+        if (driver != null) {
+            return driver;
+        }
+        return getDriver();
     }
 
 }

@@ -1,7 +1,5 @@
 package presets;
 
-import configuration.ServerConfig;
-import org.aeonbits.owner.ConfigFactory;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;

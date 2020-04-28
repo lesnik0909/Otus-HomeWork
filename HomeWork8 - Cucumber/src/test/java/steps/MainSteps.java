@@ -24,7 +24,7 @@ public class MainSteps {
 
     public MainSteps() {
         mainPage = new MainPage();
-        driver = DriverManager.getDriver();
+        driver = DriverManager.driver();
         wait = DriverManager.getDriverWait();
     }
 
@@ -41,6 +41,7 @@ public class MainSteps {
             mainPage.banner.click();
 
         } catch (Exception e) {
+            logger.info("Банер на странице отсутствует");
         }
     }
 
