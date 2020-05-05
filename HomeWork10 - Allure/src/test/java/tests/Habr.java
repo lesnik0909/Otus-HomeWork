@@ -1,8 +1,6 @@
 package tests;
 
-import io.qameta.allure.Description;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
 import presets.BaseTest;
 import org.testng.annotations.*;
 import steps.CareerSteps;
@@ -31,7 +29,7 @@ public class Habr extends BaseTest {
     @Epic("Сервис \"Habr\"")
     @Story("Проверка открытия сервиса \"Habr\"")
     @Description("Проверка открытия сервиса \"Habr\"")
-    @Test
+    @Test(description = "Проверка открытия сервиса \"Habr\"")
     public void serviceHabr() {
         mainSteps
                 .open()
@@ -42,7 +40,7 @@ public class Habr extends BaseTest {
     @Epic("Сервис \"Q&A\"")
     @Story("Проверка открытия сервиса \"Q&A\"")
     @Description("Проверка открытия сервиса \"Q&A\"")
-    @Test
+    @Test(description = "Проверка открытия сервиса \"Q&A\"")
     public void serviceQAndA() {
         mainSteps
                 .open()
@@ -54,7 +52,7 @@ public class Habr extends BaseTest {
     @Epic("Сервис \"Карьера\"")
     @Story("Проверка открытия сервиса \"Карьера\"")
     @Description("Проверка открытия сервиса \"Карьера\"")
-    @Test
+    @Test(description = "Проверка открытия сервиса \"Карьера\"")
     public void serviceCareer() {
         mainSteps
                 .open()
@@ -66,7 +64,7 @@ public class Habr extends BaseTest {
     @Epic("Сервис \"Фриланс\"")
     @Story("Проверка открытия сервиса \"Фриланс\"")
     @Description("Проверка открытия сервиса \"Фриланс\"")
-    @Test
+    @Test(description = "Проверка открытия сервиса \"Фриланс\"")
     public void serviceFreelance() {
         mainSteps
                 .open()
@@ -78,7 +76,7 @@ public class Habr extends BaseTest {
     @Epic("Сервис \"Habr\"")
     @Story("Поиск на сервисе \"Habr\"")
     @Description("Поиск на сервисе \"Habr\"")
-    @Test
+    @Test(description = "Поиск на сервисе \"Habr\"")
     public void habrSearch() {
         mainSteps
                 .open()
@@ -90,7 +88,7 @@ public class Habr extends BaseTest {
     @Epic("Сервис \"Habr\"")
     @Story("Проверка фильтров на сервисе \"Habr\" по времени")
     @Description("Проверка фильтров на сервисе \"Habr\" по времени")
-    @Test
+    @Test(description = "Проверка фильтров на сервисе \"Habr\" по времени")
     public void habrFiltersTime() {
         mainSteps
                 .open()
@@ -104,7 +102,7 @@ public class Habr extends BaseTest {
     @Epic("Сервис \"Habr\"")
     @Story("Проверка фильтров на сервисе \"Habr\" по типу")
     @Description("Проверка фильтров на сервисе \"Habr\" по типу")
-    @Test
+    @Test(description = "Проверка фильтров на сервисе \"Habr\" по типу")
     public void habrFiltersType() {
         mainSteps
                 .open()
@@ -115,7 +113,7 @@ public class Habr extends BaseTest {
     @Epic("Сервис \"Q&A\"")
     @Story("Поиск на сервисе \"Q&A\"")
     @Description("Поиск на сервисе \"Q&A\"")
-    @Test
+    @Test(description = "Поиск на сервисе \"Q&A\"")
     public void QAndASearch() {
         mainSteps
                 .open()
@@ -127,7 +125,7 @@ public class Habr extends BaseTest {
     @Epic("Сервис \"Q&A\"")
     @Story("Проверка фильтров на сервисе \"Q&A\" по типу")
     @Description("Проверка фильтров на сервисе \"Q&A\" по типу")
-    @Test
+    @Test(description = "Проверка фильтров на сервисе \"Q&A\" по типу")
     public void QAndAFilters() {
         mainSteps
                 .open()
@@ -142,7 +140,7 @@ public class Habr extends BaseTest {
     @Epic("Сервис \"Q&A\"")
     @Story("Проверка кнопки \"О сервисе\" на сервисе \"Q&A\"")
     @Description("Проверка кнопки \"О сервисе\" на сервисе \"Q&A\"")
-    @Test
+    @Test(description = "Проверка кнопки \"О сервисе\" на сервисе \"Q&A\"")
     public void QAndAAboutService() {
         mainSteps
                 .open()
@@ -155,7 +153,7 @@ public class Habr extends BaseTest {
     @Epic("Сервис \"Карьера\"")
     @Story("Поиск на сервисе \"Карьера\"")
     @Description("Поиск на сервисе \"Карьера\"")
-    @Test
+    @Test(description = "Поиск на сервисе \"Карьера\"")
     public void careerSearchVacancies() {
         mainSteps
                 .open()
@@ -167,7 +165,7 @@ public class Habr extends BaseTest {
     @Epic("Сервис \"Карьера\"")
     @Story("Все вакансии на сервисе \"Карьера\"")
     @Description("Все вакансии на сервисе \"Карьера\"")
-    @Test
+    @Test(description = "Все вакансии на сервисе \"Карьера\"")
     public void careerAllVacancies() {
         mainSteps
                 .open()
@@ -180,7 +178,7 @@ public class Habr extends BaseTest {
     @Epic("Сервис \"Карьера\"")
     @Story("Все компании на сервисе \"Карьера\"")
     @Description("Все компании на сервисе \"Карьера\"")
-    @Test
+    @Test(description = "Все компании на сервисе \"Карьера\"")
     public void careerAllCompanies() {
         mainSteps
                 .open()
@@ -193,7 +191,7 @@ public class Habr extends BaseTest {
     @Epic("Сервис \"Habr\"")
     @Story("Переключение языка на сервисе \"Habr\"")
     @Description("Переключение языка на сервисе \"Habr\"")
-    @Test
+    @Test(description = "Переключение языка на сервисе \"Habr\"")
     public void habrSwitchLanguage() {
         mainSteps
                 .open()
@@ -207,7 +205,7 @@ public class Habr extends BaseTest {
     @Epic("Сервис \"Habr\"")
     @Story("Кнопка \"Войти\" на сервисе \"Habr\"")
     @Description("Кнопка \"Войти\" на сервисе \"Habr\"")
-    @Test
+    @Test(description = "Кнопка \"Войти\" на сервисе \"Habr\"")
     public void habrToComeIn() {
         mainSteps
                 .open()
@@ -219,7 +217,7 @@ public class Habr extends BaseTest {
     @Epic("Сервис \"Habr\"")
     @Story("Кнопка \"Регистрация\" на сервисе \"Habr\"")
     @Description("Кнопка \"Регистрация\" на сервисе \"Habr\"")
-    @Test
+    @Test(description = "Кнопка \"Регистрация\" на сервисе \"Habr\"")
     public void habrRegistration() {
         mainSteps
                 .open()

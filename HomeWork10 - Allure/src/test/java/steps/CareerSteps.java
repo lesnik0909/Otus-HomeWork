@@ -1,6 +1,6 @@
 package steps;
 
-import io.qameta.allure.Step;
+import io.qameta.allure.*;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
