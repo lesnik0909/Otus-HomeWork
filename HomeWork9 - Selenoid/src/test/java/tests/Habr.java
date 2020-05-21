@@ -17,7 +17,7 @@ public class Habr extends BaseTest {
     QAndASteps qAndASteps;
     CareerSteps careerSteps;
 
-    @BeforeTest
+    @BeforeMethod
     public void serUpTests() {
         mainSteps = new MainSteps(driver, wait);
         qAndASteps = new QAndASteps(driver, wait);

@@ -18,22 +18,38 @@ import java.util.concurrent.TimeUnit;
 public class DriverManager {
 
     public static ServerConfig cfg = ConfigFactory.create(ServerConfig.class);
-    final public static Logger logger = Logger.getLogger(BaseTest.class);
-    public static WebDriver driver;
+    public static final Logger logger = Logger.getLogger(BaseTest.class);
+    public WebDriver driver;
 
-    public static WebDriver getDriver() {
+    public WebDriver getDriver() {
+        if (driver == null) {
+            getDriverUnit();
+        }
+        return driver;
+    }
+
+    public WebDriver getDriverUnit() {
         String browserName = getParameter().toLowerCase();
         logger.info("Start browser: " + browserName);
 
-        if (driver == null) {
-            try {
-                DesiredCapabilities capabilities = new DesiredCapabilities();
-                capabilities.setBrowserName(browserName);
-                capabilities.setCapability("enableVNC", true);
-                driver = new RemoteWebDriver(new URL("http://172.18.37.35:4444/wd/hub/"), capabilities);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+/*        switch (browserName) {
+            case "chrome":
+                WebDriverManager.chromedriver().setup();
+                driver = WebDriverPool.DEFAULT.getDriver(new ChromeOptions());
+                break;
+            case "firefox":
+                WebDriverManager.firefoxdriver().setup();
+                driver = WebDriverPool.DEFAULT.getDriver(new FirefoxOptions());
+                break;
+        }*/
+
+        try {
+            DesiredCapabilities capabilities = new DesiredCapabilities();
+            capabilities.setBrowserName(browserName);
+            capabilities.setCapability("enableVNC", true);
+            driver = new RemoteWebDriver(new URL("http://172.18.37.35:4444/wd/hub/"), capabilities);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         driver.manage().window().maximize();
@@ -46,15 +62,15 @@ public class DriverManager {
     }
 
     //Явные ожидания
-    public static WebDriverWait getDriverWait() {
+    public WebDriverWait getDriverWait() {
         return new WebDriverWait(getDriver(), cfg.testsWaitingTime());
     }
 
-    public static void stopAllDrivers() {
+    public void stopAllDrivers() {
         WebDriverPool.DEFAULT.dismissAll();
     }
 
-    public static void deleteCookie() {
+    public void deleteCookie() {
         driver.manage().deleteAllCookies();
     }
 

@@ -10,14 +10,15 @@ import org.testng.annotations.*;
 
 public class BaseTest {
     private ServerConfig cfg = ConfigFactory.create(ServerConfig.class);
-    final private Logger logger = Logger.getLogger(BaseTest.class);
+    private final Logger logger = Logger.getLogger(BaseTest.class);
+    DriverManager driverManager = new DriverManager();
     protected WebDriver driver;
     protected WebDriverWait wait;
 
-    @BeforeSuite
+    @BeforeMethod
     public void setupSuite() {
-        driver = DriverManager.getDriver();
-        wait = DriverManager.getDriverWait();
+        driver = driverManager.getDriver();
+        wait = driverManager.getDriverWait();
     }
 
     @BeforeClass
@@ -37,7 +38,7 @@ public class BaseTest {
 
     @AfterSuite
     public void stopAllDrivers() {
-        DriverManager.stopAllDrivers();
+        driverManager.stopAllDrivers();
     }
 
 }
